@@ -1,0 +1,209 @@
+%RONY MARUGA
+%PROLOG PROGRAM
+%parent relationships, so and so is the parent of someone
+%We have done research online to figure out if both children bel
+%ong to all parents
+%nyx is found to be the same entity and has numerous association
+parent(CHAOS, EREBUS).
+parent(NYX, EREBUS).
+parent(NYX, AETHER).
+parent(NYX, HEMERA).
+parent(EREBUS, AETHER).
+parent(EREBUS, HEMERA).
+parent(AETHER, GAIA).
+parent(AETHER, TARTARUS).
+parent(AETHER, EROS).
+parent(AETHER, PONTUS).
+parent(HEMERA, GAIA).
+parent(HEMERA, TARTARUS).
+parent(HEMERA, EROS).
+parent(HEMERA, PONTUS).
+
+%because gaia is a primordial entity representing the earth,
+parent(GAIA, URANUS).
+%gaia cannot be a parent of themselves
+parent(URANUS, OCEANUS).
+parent(URANUS, TETHYS).
+parent(URANUS, MNEMOSYNE).
+parent(URANUS, CHRONUS).
+parent(URANUS, RHEA).
+parent(URANUS, THEMIS).
+parent(URANUS, COEUS).
+parent(URANUS, PHOEBE).
+parent(URANUS,HYPERION).
+parent(URANUS,THEIA).
+parent(URANUS, IAPETUS).
+parent(URANUS,CLYMENE).
+parent(GAIA, OCEANUS).
+parent(GAIA, TETHYS).
+parent(GAIA,MNEMOSYNE).
+parent(GAIA,CHRONUS).
+parent(GAIA,RHEA).
+parent(GAIA,THEMIS).
+parent(GAIA, COEUS).
+parent(GAIA, PHOEBE).
+parent(GAIA, HYPERION).
+parent(GAIA, THEIA).
+parent(GAIA, IAPETUS).
+parent(GAIA, CLYMENE).
+
+parent(CRONUS, HESTIA ).
+parent(CRONUS, HADES).
+parent(CRONUS, POSEIDON).
+parent(CRONUS, ZEUS).
+parent(CRONUS, HERA).
+parent(CRONUS, DEMETER).
+%Zeus has a relationship with hera, semele, demeter...
+%Semele is not a child of cronus but a daughter of cadmus, harmonia
+parent(RHEA, HESTIA).
+parent(RHEA, HADES).
+parent(RHEA, POSEIDON).
+parent(RHEA, ZEUS).
+parent(RHEA, HERA).
+parent(RHEA, DEMETER).
+parent(ZEUS, HEPHAESTUS).
+parent(ZEUS, HEBE).
+parent(ZEUS, ARES).
+parent(ZEUS, ATHENA).
+parent(ZEUS, DIONYSUS).
+parent(ZEUS, PERSEPHONE).
+parent(ZEUS, ARTEMIS).
+parent(ZEUS, APOLLO).
+
+parent(HERA, ARES).
+parent(HERA, HEBE).
+parent(HERA, HEPHAESTUS).
+
+parent(SEMELE, DIONYSUS).
+parent(DEMETER, PERSEPHONE).
+
+parent(COEUS, LETO).
+%Zeus had a relation with leto, daughter of coeus
+parent(PHOEBE, LETO).
+
+parent(LETO, ARTEMIS).
+parent(LETO, APOLLO).
+
+parent(HYPERION, EOS).
+parent(HYPERION, SELENE).
+parent(HYPERION, HELIOS).
+parent(THEIA, EOS).
+parent(THEIA, SELENE).
+parent(THEIA, HELIOS).
+
+parent(IAPETUS, ATLAS).
+parent(IAPETUS, PROMETHEUS).
+parent(IAPETUS, EPIMETHEUS).
+parent(CLYMENE, ATLAS).
+parent(CLYMENE, PROMETHEUS).
+parent(CLYMENE, EPIMETHEUS).
+
+%zeus had a relation with maia
+parent(ATLAS, MAIA).
+parent(ZEUS, HERMES).
+parent(MAIA, HERMES).
+%zeus had a relation with dione
+parent(EPIMETHEUS, DIONE ).
+
+parent(ZEUS, APHRODITE).
+parent(DIONE, APHRODITE).
+
+spouse(CHAOS, NYX).
+spouse(EREBUS, NYX).
+spouse(AETHER, HEMERA).
+spouse(URANUS, GAIA).
+spouse(OCEANUS, TETHYS).
+spouse(CRONUS, RHEA).
+spouse(COEUS,PHOEBE).
+spouse(HYPERION, THEIA).
+spouse(IAPETUS, CLYMENE ).
+spouse(ZEUS, HERA).
+spouse(ZEUS, SEMELE).
+spouse(ZEUS, DEMETER).
+spouse(ZEUS, MAIA).
+spouse(ZEUS, DIONE).
+spouse(ZEUS, LETO ).
+
+male(CHAOS).
+male(EREBUS).
+male(AETHER).
+male(URANUS).
+male(TARTARUS).
+male(EROS).
+male(PONTUS).
+male(CRONUS).
+male(COEUS).
+male(HYPERION).
+male(IAPETUS).
+male(ZEUS).
+male(HERMES).
+male(DIONYSUS).
+male(PROMETHEUS).
+male(ATLAS).
+male(EPIMETHEUS).
+male(HELIOS).
+male(APOLLO).
+female(NYX).
+female(HEMERA).
+female(GAIA).
+female(TETHYS).
+female(MNEMOSYNE).
+female(RHEA).
+female(THEMIS).
+female(PHOEBE).
+female(THEIA).
+female(CLYMENE).
+female(HERA).
+female(ATHENA).
+female(DEMETER).
+female(PERSEPHONE).
+female(APHRODITE).
+female(ARTEMIS).
+female(MAIA).
+female(SEMELE).
+female(HEBE).
+female(LETO).
+female(EOS).
+female(SELENE).
+
+% Rules for the relationship between different greek gods.
+father(X, Y) :- parent(X, Y), male(X).
+mother(X, Y) :- parent(X, Y), female(X).
+sibling(X, Y) :- parent(P, X), parent(P, Y), X \= Y.
+brother(X, Y) :- sibling(X, Y), male(X).
+sister(X, Y) :- sibling(X, Y), female(X).
+uncle(X, Y) :- brother(X, P), parent(P, Y).
+aunt(X, Y) :- sister(X, P), parent(P, Y).
+grandparent(X, Y) :- parent(X, P), parent(P, Y).
+grandfather(X, Y) :- grandparent(X, Y), male(X).
+grandmother(X, Y) :- grandparent(X, Y), female(X).
+ancestor(X, Y) :- parent(X, Y).
+ancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).
+descendent(X, Y) :- ancestor(Y, X).
+brother_in_law(X, Y) :- (brother(X, P), spouse(P, Y)); (spouse(X, P), brother(P, Y)).
+sister_in_law(X, Y) :- (sister(X, P), spouse(P, Y)); (spouse(X, P), sister(P, Y)).
+father_in_law(X, Y) :- (spouse(Y, P), father(X, P)).
+mother_in_law(X, Y) :- (spouse(Y, P), mother(X, P)).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
